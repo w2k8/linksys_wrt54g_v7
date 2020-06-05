@@ -1,12 +1,241 @@
 # Project linksys wrt54g v7
 
+## Analizing the hardware
+
+Lets analize the hardeware for the 'linksys wrt54g v7'
+
+When we take look at the pcb, we can see some chips.
+
+
+Manufactor | Type | purspose
+--- | --- | ---
+Atheros | AR2317-AC14 | SOC, system on chip
+Infineon | ADM6996I | Network Controler
+Hynix | HY57V641620ETP-H | DRAM chip
+MX | 25L1605AMC | Flash chip
+
+
+## Hooking up some wires
+
+
+On the PCB there are some holes, where you can solder some pins into.
+
+![alt text][PCB]
+
+[PCB]: https://github.com/w2k8/linksys_wrt54g_v7/raw/master/images/pcb-jp1.jpg "PCB"
+
+Connect the device with some jumperwires and a serial2uart (for example a ftdi232) adapter to a computer. 
+
+Below is the output of the captured bootlog from the device.
+
+
+```
+ar531xPlus rev 0x00000090 firmware startup...
+SDRAM NOT TEST
+
+
+WRT54G version 4.1.2.56SP4
+
+
+ 1
+ 0
+
+auto-booting...
+
+Attaching to TFFS... done.
+Loading /fl/ap61.sys...956368
+Starting at 0x80480684...
+
+
+                                                            
+
+/fl/  - Volume is OK 
+Attaching interface lo0...done
+
+Ready unit=0
+
+
+ ********** Disable sysWatchdog ***************
+
+
+
+ ++++++++++++ IP attach interface ++++++++++  
+
+ Start Initial MEM Drv size:0x1fe00
+Copy OK: 28261 bytes copied
+FlshFormatFileSystem: Invalid Filesys ID -1
+ vxBitsInit 
+!!!!!!!!!!!!!!Find Interface mirror0 
+!!!!!!!!!!!!!!Find Interface ae1 
+
+
+WAN Initialisation                                 [SUCCESS]
+
+PPPoE Initialised
+
+ PPTP Initialised
+
+ L2TP Initialization success FW initalized
+
+
+ ** before calling dhcpc http register function ** 
+
+TFTPDstandard_tftp_server launched on port :Initializatinion ok ..........69.....
+
+.
+IGWIpRsmInit():  ....End
+
+
+ Initialising UPnP Stack DEBUG: IGWHttpServStart: server is now running 
+
+
+  UPnP Stack InitialisedIGWUPNLdSvInit 54
+
+
+
+  IGWIGDLoadAndSaveInit: success 
+
+../../ldsvcbk/firewall/kukildsv.c(76): FWCookieLdsvInit: SUCCESS
+
+
+Loading the databases......
+
+ ======================= Set IP Address state 0 
+ ======================= Set Boardcast Address state 0 
+Loading RIP configuration records - success.
+
+Loaded RIP database
+
+DNSRDLoad Done
+DNSRDLoadSysDName Done
+
+Firewall load database completed Loaded Security database
+
+ IGWIGD: Loading data 
+
+lTotalRecs is 1
+
+IGWIGDSetIface: IGWUpnpGetIfaceInfo failure
+
+ IGWIGDLoadEnable :lTotalRecs is 1
+
+  UPnPPeriodicAdver0xtiseRestart: Start805f8190ing Advts. 
+ (
+strt
+
+  IGWIGDLoad:  ): IGWIGDLoad() succarp_rtrequest: bad gateway valueess 
+
+ IGWUPN: Loading data 
+
+IGWUPNLoadData 74
+
+IGWUPNLoadHostRec 270
+
+IGWUPNLoadServRec 356
+
+
+IGWUPNLoadServRec: DbGetRecordInfo Failed 
+
+ Already login from internal n/w is enabled 
+
+Httpd_Register_TagArray
+
+Httpd_Register_TagArray
+
+Httpd_Register_TagArray
+
+**********Registration of local tags succesful for DMZHostConfig
+
+
+
+ ********** Ensable sysWatchdog ***************
+
+IGWIGDSetIface: IGWUpnpGetIfaceInfo failure
+
+
+ROUTE NET TABLE
+destination      gateway              flags  Refcnt  Use           Interface
+----------------------------------------------------------------------------
+0.0.0.0          0.0.0.0              101    0       0             ae1
+192.168.1.0      192.168.1.1          101    0       0             mirror0
+----------------------------------------------------------------------------
+
+ROUTE HOST TABLE
+destination      gateway              flags  Refcnt  Use           Interface
+----------------------------------------------------------------------------
+127.0.0.1        127.0.0.1            5      1       3             lo0
+239.255.255.250  192.168.1.1          5      0       0             mirror0
+----------------------------------------------------------------------------
+
+Listing Directory /fl:
+-rwxrwxrwx  1 0       0           956756 Jan  1 02:13 ap61.sys 
+-rwxrwxrwx  1 0       0           224664 Jan  1 02:13 igwhtm.dat 
+-rwxrwxrwx  1 0       0            28528 Jan  1 02:13 langpak_en 
+-rwxrwxrwx  1 0       0            28261 Jan  1 01:00 igwpricf.dat 
+-rwxrwxrwx  1 0       0             3600 Jan  1 01:00 nvram.cfg 
+-rwxrwxrwx  1 0       0             2046 Dec 24  2001 calibra.dat 
+
+/fl/  - disk check in progress ...
+
+/fl/ap61.sys
+/fl/igwhtm.dat
+/fl/langpak_en 
+/fl/igwpricf.dat
+/fl/nvram.cfg    
+/fl/calibra.dat
+                                                            
+
+/fl/  - Volume is OK 
+
+	  total # of clusters:	2,819
+	   # of free clusters:	385
+	    # of bad clusters:	0
+	     total free space:	197,120
+     max contiguous free space:  197,120 bytes
+		   # of files:	6
+		 # of folders:	0
+	 total bytes in files:	1,214 Kb
+	     # of lost chains:	0
+   total bytes in lost chains:  0
+
+FREE LIST:
+  num     addr      size
+  --- ---------- ----------
+    1 0x805f4d40      13872
+    2 0x805f4aa0         32
+    3 0x805e8180      50736
+    4 0x80510520        192
+    5 0x803dd2a0     242896
+
+
+SUMMARY:
+ status   bytes    blocks   avg block  max block
+ ------ --------- -------- ---------- ----------
+current
+   free    307728        5      61545    242896
+  alloc   4009248     2345       1709        -
+cumulative
+  alloc   4475216    11055        404        -
+
+```
+
+
 
 ## Dumping the firmware
+
+Before we can dump the firm, we must remove the flashchip. This can be done with a SMD Reworkstation
 
 ![alt text][flashchip1]
 ![alt text][flashchip3]
 ![alt text][flashchip2]
+
+Now, lets dump the firmware from the flashchip
+
 ![alt text][flashchip4]
+
+We can dump the firmware with a programmer. 
+In this example i use a RT809h.
+
 ![alt text][flashchip5]
 
 [flashchip1]: https://github.com/w2k8/linksys_wrt54g_v7/raw/master/images/flashchip1.jpg "Flashchip"
@@ -17,6 +246,9 @@
 
 
 ## Analizing the firmware
+
+Before taking a look at the fireware, lets use binwalker to see what we've got.
+
 
 ```
 $ binwalk MX25L1605A_SOIC16_20200124_185531.BIN 
@@ -138,13 +370,41 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 1824046       0x1BD52E        gzip compressed data, has original file name: "help.js", from NTFS filesystem (NT), last modified: 2006-05-15 08:59:56
 ```
 
+It's seems we have succesvol dumped the firmware.
+A quick look at the output tells us we have a VxWorks Operating system, and a TROC filesystem.
+
+Both i have never heard of before.
+But we can also see a lot of htm files.
+
+Shall we try to extract some files?
+
+I have seen some interesting filenames in the output of binwalker.
+Lastpassword.htm and unauthorized.htm
+
+Lets extract those files from the firmware dump.
+
+
 ## Extracting files from the firmware dump
+
+To extract the 2 files, we can use the utility dd. 
+
+dd \[inputfile\] \[outputfile\] \[skip\] \[count\] \[blocksize\]
+inputfile = MX25L1605A_SOIC16_20200124_185449.bin
+outputfile = lastpassword.htm.gz (becouse the source is also compressed)
+skip = 396320 (the offset of the file in the firmware dump, use the output of binwalker as reference)
+count = 196 (calculate from the next file's offset from the output of binwalker. subtract both values.)
+blocksize = 1 (this is the size of the blocks.) 
+
+> **Note:** We can also use count=1 and bs=196, this tells dd that we count 1 blocksize of 196 bytes.
 
 ```
 $ dd if=MX25L1605A_SOIC16_20200124_185449.BIN of=lastpassword.htm.gz skip=396320 count=196 bs=1
 
 $ dd if=MX25L1605A_SOIC16_20200124_185449.BIN of=Unauthorized.htm.gz skip=707313 count=144 bs=1
 ```
+
+Listing of the files collected so far.
+
 ```
 $ ls -la
 
@@ -158,8 +418,9 @@ drwxrwxr-x  2 w w    4096 feb  4 20:49 modified_firmware
 -rwxrwxrwx  1 w w 2097152 jan 24 18:55 MX25L1605A_SOIC16_20200124_185449.BIN
 -rwxrwxrwx  1 w w 2097152 jan 24 18:55 MX25L1605A_SOIC16_20200124_185531.BIN
 -rw-rw-r--  1 w w     144 feb  4 20:42 Unauthorized.htm.gz
--rw-rw-r--  1 w w     144 feb  4 20:40 Unauthorized.htm_org.gz
 ```
+
+Lets see the content of the file lastpassword.htm.gz
 
 ```
 $ zcat lastpassword.htm.gz
@@ -195,6 +456,7 @@ drwxrwxr-x 5 w w    4096 feb  4 20:43 ..
 -rw-rw-r-- 1 w w     196 feb  4 20:29 lastpassword.htm.gz
 -rwxrwxr-x 1 w w 2097152 feb  4 20:44 MX25L1605A_SOIC16_20200124_185449.BIN
 -rw-rw-r-- 1 w w 2097152 feb  4 20:49 MX25L1605A_SOIC16_20200124_185449.BIN_modified_firmware
+-rw-rw-r-- 1 w w     144 feb  4 20:40 Unauthorized.htm.gz
 -rw-rw-r-- 1 w w     144 feb  4 20:40 Unauthorized.htm_org.gz
 ```
 
@@ -208,7 +470,7 @@ Authorization required.
 ```
 
 Now make changes in the file with the name Unauthorized.htm.
-Becouse we have extracted the files from the firmware with dd and we are writing the file back into the firmware with dd, the file size of the file must be exact the same. so play around with some characters te make sure the bytes are the same.
+> **Note:** Becouse we have extracted the files from the firmware with dd and we are writing the file back into the firmware with dd, the file size of the file must be exact the same. so play around with some characters te make sure the bytes are the same.
 
 ```
 $ zcat Unauthorized.htm.gz 
