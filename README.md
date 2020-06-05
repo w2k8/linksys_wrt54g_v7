@@ -389,11 +389,17 @@ Lets extract those files from the firmware dump.
 To extract the 2 files, we can use the utility dd. 
 
 dd \[inputfile\] \[outputfile\] \[skip\] \[count\] \[blocksize\]
+
 inputfile = MX25L1605A_SOIC16_20200124_185449.bin
+
 outputfile = lastpassword.htm.gz (becouse the source is also compressed)
+
 skip = 396320 (the offset of the file in the firmware dump, use the output of binwalker as reference)
+
 count = 196 (calculate from the next file's offset from the output of binwalker. subtract both values.)
+
 blocksize = 1 (this is the size of the blocks.) 
+
 
 > **Note:** We can also use count=1 and bs=196, this tells dd that we count 1 blocksize of 196 bytes.
 
